@@ -64,6 +64,7 @@ View\ListaUsuarioView$1.class
 View\LoginView$1.class
 DAO\SqliteFactoryDAO.class
 PresenterUsuariosCommand\CloseCommand.class
+MainPresenter\CarregandoPainelInferior$usuario.class
 Model\RegistroUsuario.class
 MainPresenterCommand\PrincipalCommand.class
 PresenterNotificacao\CarregandoTabela.class

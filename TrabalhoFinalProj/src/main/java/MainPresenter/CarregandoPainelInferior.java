@@ -70,4 +70,18 @@ public class CarregandoPainelInferior extends PrincipalPresenterState {
     public void removerComponente(Component c) {
         new RemoverComponente(presenter.view, c).executar();
     }
+
+    private static class usuario {
+
+        private static String getType() {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+
+        private static String getState() {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+
+        public usuario() {
+        }
+    }
 }
