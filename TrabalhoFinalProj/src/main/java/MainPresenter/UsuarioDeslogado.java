@@ -1,34 +1,26 @@
 package MainPresenter;
 
+import Observer.EventListerners;
+import Presenter.AcessoPresenter;
 import MainPresenterCommand.AddComponente;
-import Util.UsuarioRetorno;
-import MainPresenterCommand.AtualizarNumeroDeNotificacoes;
 import MainPresenterCommand.RemoverComponente;
 
 import java.awt.Component;
 
-public class CarregandoPainelInferior extends PrincipalPresenterState {
+public class UsuarioDeslogado extends PrincipalPresenterState implements EventListerners {
 
-    public CarregandoPainelInferior(PrincipalPresenter presenter) {
-        super(presenter);
+    public UsuarioDeslogado(PrincipalPresenter Principalpresenter) {
+        super(Principalpresenter);
 
-        presenter.view.getLblTipoUsuario().setText(usuario.getType().toUpperCase());
+        Principalpresenter.view.getBtnAdiministrador().setVisible(false);
+        Principalpresenter.view.getBtnAdiministrador().setEnabled(false);
 
-        presenter.view.getPnlInferior().setVisible(true);
-        presenter.view.getBtnQtdNotificacoes().setVisible(true);
+        Principalpresenter.view.getBtnUsuario().setVisible(false);
+        Principalpresenter.view.getBtnUsuario().setEnabled(false);
 
-        if (usuario.getType() == UsuarioRetorno.ADMINISTRADOR) {
-            new AtualizarNumeroDeNotificacoes(presenter.view).executar();
-            new AdministradorLogado(presenter);
-        } else {
-            if (usuario.getState().equals(UsuarioRetorno.DESAUTORIZADO)) {
-                presenter.view.getBtnQtdNotificacoes().setVisible(false);
-                new UsuarioNaoAutorizado(presenter);
-            } else {
-                new AtualizarNumeroDeNotificacoes(presenter.view).executar();
-                new UsuarioLogado(presenter);
-            }
-        }
+        Principalpresenter.view.getPnlInferior().setVisible(false);
+
+        new AcessoPresenter(Principalpresenter);
     }
 
     @Override
@@ -59,6 +51,11 @@ public class CarregandoPainelInferior extends PrincipalPresenterState {
     @Override
     public void deslogar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void update(String mensagem) {
+
     }
 
     @Override

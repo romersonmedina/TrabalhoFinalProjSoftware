@@ -1,34 +1,32 @@
 package MainPresenter;
 
 import MainPresenterCommand.AddComponente;
-import Util.UsuarioRetorno;
-import MainPresenterCommand.AtualizarNumeroDeNotificacoes;
+import MainPresenterCommand.Deslogar;
 import MainPresenterCommand.RemoverComponente;
-
 import java.awt.Component;
+import javax.swing.JOptionPane;
 
-public class CarregandoPainelInferior extends PrincipalPresenterState {
+public class UsuarioNaoAutorizado extends PrincipalPresenterState {
 
-    public CarregandoPainelInferior(PrincipalPresenter presenter) {
+    public UsuarioNaoAutorizado(PrincipalPresenter presenter) {
         super(presenter);
 
-        presenter.view.getLblTipoUsuario().setText(usuario.getType().toUpperCase());
+        presenter.view.getBtnAlterarSenha().setEnabled(false);
+        presenter.view.getBtnVerNotificacoes().setEnabled(false);
+        presenter.view.getBtnAlterarSenha().setVisible(false);
+        presenter.view.getBtnVerNotificacoes().setVisible(false);
 
-        presenter.view.getPnlInferior().setVisible(true);
-        presenter.view.getBtnQtdNotificacoes().setVisible(true);
+        presenter.view.getBtnUsuario().setVisible(true);
+        presenter.view.getBtnUsuario().setEnabled(true);
 
-        if (usuario.getType() == UsuarioRetorno.ADMINISTRADOR) {
-            new AtualizarNumeroDeNotificacoes(presenter.view).executar();
-            new AdministradorLogado(presenter);
-        } else {
-            if (usuario.getState().equals(UsuarioRetorno.DESAUTORIZADO)) {
-                presenter.view.getBtnQtdNotificacoes().setVisible(false);
-                new UsuarioNaoAutorizado(presenter);
-            } else {
-                new AtualizarNumeroDeNotificacoes(presenter.view).executar();
-                new UsuarioLogado(presenter);
-            }
-        }
+        presenter.view.getPnlPrincipal().removeAll();
+
+        JOptionPane.showMessageDialog(
+                presenter.view.getPnlPrincipal(),
+                "Falha de autorização! Este usuário não possui permissão para executar esta ação!",
+                "Fale com seu gestor ou agurde autorização!",
+                JOptionPane.INFORMATION_MESSAGE
+        );
     }
 
     @Override
@@ -58,16 +56,16 @@ public class CarregandoPainelInferior extends PrincipalPresenterState {
 
     @Override
     public void deslogar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        new Deslogar(presenter, presenter.view).executar();
     }
 
     @Override
     public void addComponente(Component c) {
-        new AddComponente(presenter.view, c).executar();
+        new AddComponente(presenter.view, c);
     }
 
     @Override
     public void removerComponente(Component c) {
-        new RemoverComponente(presenter.view, c).executar();
+        new RemoverComponente(presenter.view, c);
     }
 }
