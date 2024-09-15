@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 
-
 public class AtualizarUsuarioPresenter {
 
     private RegistraUsuarioView view;

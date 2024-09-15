@@ -39,7 +39,12 @@ public class NotificacaoRetorno {
         return estado;
     }
 
-   
+    /**
+     * Set adicionado para diminuir o custo de processamento para atualizar
+     * tables
+     *
+     * @param estado
+     */
     void setEstado(String estado) {
         this.estado = estado;
     }
